@@ -1,11 +1,12 @@
 {
-  "name": "Summary Bar- AirBnB",
+  "name": "SummaryBarAirBnB",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "lint": "eslint client/src/* database/db.js server/index.js"
   },
   "author": "Becky Gagnon",
   "license": "",
@@ -14,6 +15,8 @@
     "babel-loader": "^6.3.2",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
+    "eslint": "^7.18.0",
+    "eslint-plugin-react": "^7.22.0",
     "webpack": "^2.2.1"
   },
   "dependencies": {
