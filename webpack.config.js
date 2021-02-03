@@ -1,5 +1,4 @@
 const path = require('path');
-//webpack 4.46
 module.exports = {
 	entry: './client/src/index.jsx',
 	output: {
@@ -25,7 +24,7 @@ module.exports = {
 				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
 				loader: 'file-loader',
 				options: {
-					outputPath: 'fonts/'
+					outputPath: 'fonts-summary/'
 				}
 			}
 		]
