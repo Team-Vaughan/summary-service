@@ -1,0 +1,60 @@
+
+
+#AppContainerDiv {
+  margin-top: 5%;
+  margin-left: 3%;
+  height: 150px;
+  width: 650px;
+}
+
+#SummaryBarContainerDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 100px;
+  font-family: Roboto;
+}
+
+#LeftDiv {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  order: 1;
+}
+
+#SummaryTitleDiv {
+  align-self: flex-start;
+  font-size: large;
+  font-weight: 700;
+  width: 400px;
+
+}
+
+#SummaryItemsDiv {
+  width: 400px;
+  align-self: flex-end;
+  margin-top: 5%;
+}
+
+#PhotoDiv {
+  align-self: flex-end;
+  position: relative;
+  height: 100px;
+  order: 2;
+}
+
+#HostImage {
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  z-index: 1;
+}
+
+#superhost {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 200;
+  font-size: 40px;
+}

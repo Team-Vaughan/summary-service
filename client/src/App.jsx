@@ -3,66 +3,13 @@ import $ from 'jquery';
 import styled from 'styled-components';
 import "@fontsource/roboto";
 import "@fontsource/roboto/700.css";
+import '../dist/styles.css';
 
 
 
 var TEST_MODE = true;
 
-var AppContainerDiv = styled.div`
-  height: 150px;
-  width: 650px;
-`;
-var SummaryBarContainerDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  height: 100px;
-  font-family: Roboto;
-`;
 
-var LeftDiv = styled.div`
-  display: flex;
-  width: 400px;
-  flex-direction: column;
-  order: 1;
-`;
-
-var SummaryTitleDiv = styled.div`
-  align-self: flex-start;
-  font-size: large;
-  font-weight: 700;
-  width: 400px;
-
-`;
-
-var SummaryItemsDiv = styled.div`
-  width: 400px;
-  align-self: flex-end;
-  margin-top: 5%;
-`;
-
-var PhotoDiv = styled.div`
-  align-self: flex-end;
-  height: 100px;
-  order: 2;
-`;
-
-var HostImage = styled.img`
-  border-radius: 50%;
-  height: 70px;
-  width: 70px;
-  z-index: 1;
-
-`;
-
-var Superhost = styled.div`
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  z-index: 2;
-  font-size: 40px;
-`;
 
 
 
@@ -122,18 +69,18 @@ class App extends React.Component {
 
   render() {
     return (
-    <AppContainerDiv>
-      <SummaryBarContainerDiv>
-        <LeftDiv>
-          <SummaryTitleDiv>{`${this.state.typeOfStay} hosted by ${this.state.hostName}`}</SummaryTitleDiv>
-          <SummaryItemsDiv>{`Beds: ${this.state.numBeds}  \u2022  Baths: ${this.state.numBaths}  \u2022  Bedrooms: ${this.state.numBedrooms}  \u2022  Guests: ${this.state.numGuests}`}</SummaryItemsDiv>
-        </LeftDiv>
-        <PhotoDiv>
-          <HostImage src={this.state.hostPhotoURL}/>
-          <Superhost>{this.state.isSuperhost ? '🥇' : ''}</Superhost>
-        </PhotoDiv>
-      </SummaryBarContainerDiv>
-    </AppContainerDiv>)
+    <div id='AppContainerDiv'>
+      <div id='SummaryBarContainerDiv'>
+        <div id='LeftDiv'>
+          <div id='SummaryTitleDiv'>{`${this.state.typeOfStay} hosted by ${this.state.hostName}`}</div>
+          <div id='SummaryItemsDiv'>{`Beds: ${this.state.numBeds}  \u2022  Baths: ${this.state.numBaths}  \u2022  Bedrooms: ${this.state.numBedrooms}  \u2022  Guests: ${this.state.numGuests}`}</div>
+        </div>
+        <div id='PhotoDiv'>
+          <img id='HostImage' src={this.state.hostPhotoURL}/>
+          <div id='superhost'>{this.state.isSuperhost ? '🎖' : ''}</div>
+        </div>
+      </div>
+    </div>)
   }
 
 }
