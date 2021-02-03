@@ -1,31 +1,10 @@
-const {DATABASE_NAME, DATABASE_PORT} = require('../config.js');
+const {NUMBER_OF_STAYS, StaySummary} = require('./dbStart.js');
 
-var port = DATABASE_PORT === '' ? '' : ('/' + DATABASE_PORT);
-console.log(`mongodb://localhost${port}/${DATABASE_NAME}`);
-const mongoose = require('mongoose');
-mongoose.connect(`mongodb://localhost${port}/${DATABASE_NAME}`);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'airBnB summary database connection error'));
-db.once('open', () => {
-  console.log('database is open');
-})
-
-const NUMBER_OF_STAYS = 100;
 const PARTY_MODE = true;
 
 var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
 }
-
-const staySummarySchema = new mongoose.Schema({
-  numBeds: Number,
-  numBedrooms: Number,
-  numBaths: Number,
-  numGuests: Number,
-  typeOfStay: String,
-  stayId: Number
-});
-const StaySummary = mongoose.model('StaySummary', staySummarySchema);
 
 console.log('Deleting existing entries...')
 StaySummary.deleteMany({}, (err, result) => { //clear existing database

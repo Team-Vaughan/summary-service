@@ -1,5 +1,6 @@
+var {StaySummary} = require('./dbStart.js');
 
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 var getSummaryInfo;
 
@@ -15,8 +16,17 @@ if (TEST_MODE) {
     });
   }
 } else {
-  getSummaryInfo = () => {
-    //return something from database
+  getSummaryInfo = (id, cb) => {
+    console.log('hihi');
+    StaySummary.find({stayId: id}, (err, summary) => {
+      if (err) {
+        console.log(err);
+        cb(err);
+      } else {
+        //console.log(summary);
+        cb(null, summary[0]._doc);
+      }
+    })
   }
 }
 
