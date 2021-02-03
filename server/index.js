@@ -16,7 +16,6 @@ app.get('/rooms/:id/summary', async (req, res) => {
     if(err) {
       res.sendStatus(404);
     } else {
-      console.log('sending:', info);
       res.send(info);
     }
   })

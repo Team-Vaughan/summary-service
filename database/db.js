@@ -17,13 +17,11 @@ if (TEST_MODE) {
   }
 } else {
   getSummaryInfo = (id, cb) => {
-    console.log('hihi');
     StaySummary.find({stayId: id}, (err, summary) => {
       if (err) {
         console.log(err);
         cb(err);
       } else {
-        //console.log(summary);
         cb(null, summary[0]._doc);
       }
     })
