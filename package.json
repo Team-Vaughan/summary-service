@@ -7,7 +7,8 @@
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "lint": "eslint client/src/* database/db.js server/index.js",
-    "seed": "node ./database/dbInit.js"
+    "seed": "node ./database/dbInit.js",
+    "test": "jest"
   },
   "author": "Becky Gagnon",
   "license": "",
@@ -56,5 +57,13 @@
   },
   "engines": {
     "node": "12.19.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "./__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy",
+      "@fontsource/roboto": "identity-obj-proxy"
+    },
+    "testURL": "http://localhost:5002/rooms/109/"
   }
 }
