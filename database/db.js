@@ -22,7 +22,11 @@ if (TEST_MODE) {
         console.log(err);
         cb(err);
       } else {
-        cb(null, summary[0]._doc);
+        if(summary[0] === undefined) {
+          cb(new Error('Could not find record in database'));
+        } else {
+          cb(null, summary[0]._doc);
+        }
       }
     })
   }
