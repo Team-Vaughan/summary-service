@@ -5,16 +5,7 @@ import "@fontsource/roboto";
 import "@fontsource/roboto/700.css";
 import '../dist/styles.css';
 
-
-
 var TEST_MODE = true;
-
-
-
-
-
-
-
 
 class App extends React.Component {
 
