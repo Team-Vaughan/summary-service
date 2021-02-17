@@ -1,9 +1,7 @@
 version: 2.1
-app-test: ~
 orbs:
   node: circleci/node@3.0.0
 workflows:
   node-tests:
     jobs:
       - node/test
-working_directory: ~
