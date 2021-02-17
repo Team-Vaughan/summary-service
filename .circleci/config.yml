@@ -6,3 +6,4 @@ workflows:
   node-tests:
     jobs:
       - node/test
+working_directory: ~
