@@ -3,6 +3,12 @@ import { configure, shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import App from './App.jsx';
 
+describe('<App />', () => {
+
+  it('has a dumb test', () => {
+    expect(1).toBe(1);
+  })
+})
 
 // configure({ adapter: new Adapter() });
 
