@@ -1,19 +1,25 @@
 var {StaySummary} = require('./dbStart.js');
+require('dotenv');
 
-const TEST_MODE = false;
+
 
 var getSummaryInfo;
 
-if (TEST_MODE) {
+if (process.env.NODE_ENV === 'test') {
 
   getSummaryInfo = (id, cb) => {
-    cb(null, {
-      numBeds: 2,
-      numBedrooms: 2,
-      numBaths: 1.5,
-      numGuests: 4,
-      typeOfStay: 'Entire house'
-    });
+    if (id >= 100 && id < 200) {
+      cb(null, {
+        numBeds: 2,
+        numBedrooms: 2,
+        numBaths: 1.5,
+        numGuests: 4,
+        typeOfStay: 'Entire house'
+      });
+
+    } else {
+      cb(new Error('ID not in database'));
+    }
   }
 } else {
   getSummaryInfo = (id, cb) => {
