@@ -7,6 +7,8 @@ var {SERVER_PORT} = require('../config.js');
 
 
 var app = express();
+app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.json());
 
 app.use(cors());
 app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
@@ -17,6 +19,18 @@ app.get('/rooms/:id/summary', async (req, res) => {
       res.sendStatus(404);
     } else {
       res.send(info);
+    }
+  })
+})
+
+app.post('/rooms/summary', async (req, res) => {
+  console.log(req.body);
+  // get body from post request
+  db.insertNewSummary(req.body, (err, info) => {
+    if (err) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(200);
     }
   })
 })
