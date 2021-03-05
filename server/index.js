@@ -24,13 +24,13 @@ app.get('/rooms/:id/summary', async (req, res) => {
 })
 
 app.post('/rooms/summary', async (req, res) => {
-  console.log(req.body);
   // get body from post request
-  db.insertNewSummary(req.body, (err, info) => {
+  db.insertNewSummary(req.body, (err, result) => {
     if (err) {
+      console.log(err);
       res.sendStatus(404);
     } else {
-      res.sendStatus(200);
+      res.sendStatus(result)
     }
   })
 })

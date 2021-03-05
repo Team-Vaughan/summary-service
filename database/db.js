@@ -45,12 +45,17 @@ let insertNewSummary = (info, cb) => {
   StaySummary.find({stayId: newStayId}, (err, summary) => {
     if (err) {
       console.log(err);
-      cb(err);
+      cb(err, 404);
     } else if (summary.length > 0) {
-      cb(err);
+      cb(err, 404);
     } else {
-      StaySummary.create({stayId: newStayId}, (err, test) => {
-        console.log('right here', test._doc);
+      StaySummary.create({stayId: newStayId}, (err, result) => {
+        if (err) {
+          console.log(err);
+          cb(err, 404);
+        } else {
+          cb(null, 200);
+        }
       })
     }
   })
