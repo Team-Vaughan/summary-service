@@ -5,6 +5,7 @@ module.exports = {
 		path: path.resolve(__dirname, 'client', 'dist'),
 		filename: 'summary.js'
 	},
+	watch: true,
 	module: {
 		rules: [
 			{
