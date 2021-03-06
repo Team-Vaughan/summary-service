@@ -42,14 +42,21 @@ if (process.env.NODE_ENV === 'test') {
 let insertNewSummary = (info, cb) => {
   // need to make sure stayId isn't already taken by another room
   let newStayId = info.stayId;
+  let numBeds = info.numBeds;
+  let numBedrooms = info.numBedrooms;
+  let numBaths = info.numBaths;
+  let numGuests = info.numGuests;
+  let typeOfStay = info.typeOfStay;
+
+
   StaySummary.find({stayId: newStayId}, (err, summary) => {
     if (err) {
-      console.log(err);
+      console.log('Record already in database');
       cb(err, 404);
     } else if (summary.length > 0) {
       cb(err, 404);
     } else {
-      StaySummary.create({stayId: newStayId, numBeds: 5}, (err, result) => {
+      StaySummary.create({stayId: newStayId, numBeds: numBeds, numBedrooms: numBedrooms, numBaths: numBaths, numGuests: numGuests, typeOfStay: typeOfStay}, (err, result) => {
         if (err) {
           console.log(err);
           cb(err, 404);
