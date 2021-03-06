@@ -80,7 +80,6 @@ let deleteSummary = (id, cb) => {
 }
 
 let updateSummary = (id, cb) => {
-  console.log('here',id);
   let options = {useFindAndModify: true};
   StaySummary.findOneAndUpdate({stayId: id}, options, (err, result) => {
     if (err) {
