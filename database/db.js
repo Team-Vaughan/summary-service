@@ -59,15 +59,21 @@ let insertNewSummary = (info, cb) => {
       })
     }
   })
-  //input is body from a post request
-  //should rec data that includes, stayId, typeOfStay, numGuests, numBaths, numBeds, numBedrooms
-  // with mongoose model use insert query with data above
-  // if err console log err
-  //else send make response indicating data was successfully input into database
-  //output is a successful callback to server
+}
+
+let deleteSummary = (id, cb) => {
+  StaySummary.deleteOne({stayId: id }, (err, result) => {
+    if (err) {
+      console.log(err);
+      cb(err, 404);
+    } else {
+      cb(null, 200);
+    }
+  })
 }
 
 module.exports = {
   getSummaryInfo,
-  insertNewSummary
+  insertNewSummary,
+  deleteSummary
 };

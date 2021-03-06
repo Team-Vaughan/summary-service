@@ -35,6 +35,20 @@ app.post('/rooms/summary', async (req, res) => {
   })
 })
 
+app.delete('/rooms/summary/:roomId', async (req, res) => {
+  let roomId = req.params.roomId;
+  console.log(req.params);
+  db.deleteSummary(roomId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(404);
+    } else {
+      console.log('Record successfully removed');
+      res.sendStatus(result);
+    }
+  })
+})
+
 
 console.log('listening on port ', SERVER_PORT);
 app.listen(SERVER_PORT);
