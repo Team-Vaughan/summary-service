@@ -35,15 +35,28 @@ app.post('/rooms/summary', async (req, res) => {
   })
 })
 
-app.delete('/rooms/summary/:roomId', async (req, res) => {
-  let roomId = req.params.roomId;
-  console.log(req.params);
-  db.deleteSummary(roomId, (err, result) => {
+app.delete('/rooms/summary/:stayId', async (req, res) => {
+  let stayId = req.params.stayId;
+  db.deleteSummary(stayId, (err, result) => {
     if (err) {
       console.log(err);
       res.sendStatus(404);
     } else {
       console.log('Record successfully removed');
+      res.sendStatus(result);
+    }
+  })
+})
+
+app.put('/rooms/summary/:stayId', async (req, res) => {
+  let stayId = req.params.stayId;
+  console.log(req.params);
+  db.updateSummary(stayId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(404);
+    } else {
+      console.log('Record successfully updated');
       res.sendStatus(result);
     }
   })

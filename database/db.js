@@ -49,7 +49,7 @@ let insertNewSummary = (info, cb) => {
     } else if (summary.length > 0) {
       cb(err, 404);
     } else {
-      StaySummary.create({stayId: newStayId}, (err, result) => {
+      StaySummary.create({stayId: newStayId, numBeds: 5}, (err, result) => {
         if (err) {
           console.log(err);
           cb(err, 404);
@@ -72,8 +72,22 @@ let deleteSummary = (id, cb) => {
   })
 }
 
+let updateSummary = (id, cb) => {
+  console.log('here',id);
+  let options = {useFindAndModify: true};
+  StaySummary.findOneAndUpdate({stayId: id}, options, (err, result) => {
+    if (err) {
+      console.log(err);
+      cb(err, 404);
+    } else {
+      cb(null, 200);
+    }
+  })
+}
+
 module.exports = {
   getSummaryInfo,
   insertNewSummary,
-  deleteSummary
+  deleteSummary,
+  updateSummary
 };
