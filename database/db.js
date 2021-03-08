@@ -38,6 +38,62 @@ if (process.env.NODE_ENV === 'test') {
   }
 }
 
+let insertNewSummary = (info, cb) => {
+  // need to make sure stayId isn't already taken by another room
+  let {
+    stayId,
+    numBeds,
+    numBedrooms,
+    numBaths,
+    numGuests,
+    typeOfStay
+  } = info;
+
+  StaySummary.find({stayId: stayId}, (err, summary) => {
+    if (err) {
+      console.log('Record already in database');
+      cb(err, 404);
+    } else if (summary.length > 0) {
+      cb(err, 404);
+    } else {
+      StaySummary.create({stayId, numBeds, numBedrooms, numBaths, numGuests, typeOfStay}, (err, result) => {
+        if (err) {
+          console.log(err);
+          cb(err, 404);
+        } else {
+          cb(null, 200);
+        }
+      })
+    }
+  })
+}
+
+let deleteSummary = (id, cb) => {
+  StaySummary.deleteOne({stayId: id }, (err, result) => {
+    if (err) {
+      console.log(err);
+      cb(err, 404);
+    } else {
+      cb(null, 200);
+    }
+  })
+}
+
+let updateSummary = (id, cb) => {
+  let options = {useFindAndModify: true};
+  StaySummary.findOneAndUpdate({stayId: id}, options, (err, result) => {
+    if (err) {
+      console.log(err);
+      cb(err, 404);
+    } else {
+      cb(null, 200);
+    }
+  })
+}
+
 module.exports = {
-  getSummaryInfo
+  getSummaryInfo,
+  insertNewSummary,
+  deleteSummary,
+  updateSummary
 };
