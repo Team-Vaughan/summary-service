@@ -31,7 +31,6 @@ if (process.env.NODE_ENV === 'test') {
         if(summary[0] === undefined) {
           cb(new Error('Could not find record in database'));
         } else {
-          console.log('here', summary[0]._doc);
           cb(null, summary[0]._doc);
         }
       }
@@ -41,22 +40,23 @@ if (process.env.NODE_ENV === 'test') {
 
 let insertNewSummary = (info, cb) => {
   // need to make sure stayId isn't already taken by another room
-  let newStayId = info.stayId;
-  let numBeds = info.numBeds;
-  let numBedrooms = info.numBedrooms;
-  let numBaths = info.numBaths;
-  let numGuests = info.numGuests;
-  let typeOfStay = info.typeOfStay;
+  let {
+    stayId,
+    numBeds,
+    numBedrooms,
+    numBaths,
+    numGuests,
+    typeOfStay
+  } = info;
 
-
-  StaySummary.find({stayId: newStayId}, (err, summary) => {
+  StaySummary.find({stayId: stayId}, (err, summary) => {
     if (err) {
       console.log('Record already in database');
       cb(err, 404);
     } else if (summary.length > 0) {
       cb(err, 404);
     } else {
-      StaySummary.create({stayId: newStayId, numBeds: numBeds, numBedrooms: numBedrooms, numBaths: numBaths, numGuests: numGuests, typeOfStay: typeOfStay}, (err, result) => {
+      StaySummary.create({stayId, numBeds, numBedrooms, numBaths, numGuests, typeOfStay}, (err, result) => {
         if (err) {
           console.log(err);
           cb(err, 404);

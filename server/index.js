@@ -26,15 +26,15 @@ app.get('/rooms/:id/summary', async (req, res) => {
 app.post('/rooms/summary', async (req, res) => {
   // get body from post request
   //need to check that all info was correctly sent or sent at all
-  req.body.numBeds = undefined ? req.body.numBeds = req.body.numBeds :req.body.numBeds = "";
+  req.body.numBeds === undefined ? req.body.numBeds = "": req.body.numBeds;
 
-  req.body.numBedrooms = undefined ? req.body.numBedrooms = req.body.numBedrooms :req.body.numBedrooms = "";
+  req.body.numBedrooms === undefined ? req.body.numBedrooms = "":req.body.numBedrooms;
 
-  req.body.numBaths = undefined ? req.body.numBaths = req.body.numBaths :req.body.numBaths = "";
+  req.body.numBaths === undefined ? req.body.numBaths = "" :req.body.numBaths;
 
-  req.body.numGuests = undefined ? req.body.numGuests = req.body.numGuests :req.body.numGuests = "";
+  req.body.numGuests === undefined ? req.body.numGuests = "" : req.body.numGuests;
 
-  req.body.typeOfStay = undefined ? req.body.typeOfStay = req.body.typeOfStay :req.body.typeOfStay = "";
+  req.body.typeOfStay === undefined ? req.body.typeOfStay = "" : req.body.typeOfStay;
 
 
   db.insertNewSummary(req.body, (err, result) => {
