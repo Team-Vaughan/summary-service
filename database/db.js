@@ -1,4 +1,4 @@
-var {StaySummary} = require('./dbStart.js');
+const {StaySummary} = require('./dbStart.js');
 require('dotenv');
 
 
@@ -48,6 +48,7 @@ let insertNewSummary = (info, cb) => {
     numGuests,
     typeOfStay
   } = info;
+
 
   StaySummary.find({stayId: stayId}, (err, summary) => {
     if (err) {

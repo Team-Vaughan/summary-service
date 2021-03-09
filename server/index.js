@@ -7,7 +7,7 @@ var {SERVER_PORT} = require('../config.js');
 
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json());
 
 app.use(cors());
@@ -24,6 +24,7 @@ app.get('/rooms/:id/summary', async (req, res) => {
 })
 
 app.post('/rooms/summary', async (req, res) => {
+
   // get body from post request
   //need to check that all info was correctly sent or sent at all
   req.body.numBeds === undefined ? req.body.numBeds = "": req.body.numBeds;
@@ -36,7 +37,7 @@ app.post('/rooms/summary', async (req, res) => {
 
   req.body.typeOfStay === undefined ? req.body.typeOfStay = "" : req.body.typeOfStay;
 
-
+console.log('here', req.body);
   db.insertNewSummary(req.body, (err, result) => {
     if (err) {
       console.log(err);

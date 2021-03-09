@@ -1,20 +1,18 @@
-var app = require('./index.js');
+const app = require('./index.js');
 const supertest = require('supertest');
 const request = supertest(app);
 require('dotenv');
-const {DATABASE_NAME, DATABASE_PORT} = require('../config.js');
+const {DATABASE_NAME, DATABASE_PORT, DATABASE_TEST_NAME} = require('../config.js');
 const mongoose = require('mongoose');
+var db = require('../database/db.js');
+const Schema = mongoose.Schema;
+
 
 
 describe('CRUD operations test suite', () => {
 
-   beforeAll(async () => {
-     mongoose.connect(`mongodb://localhost/${DATABASE_NAME}`);
-   });
 
-   afterAll(async () => {
-     await mongoose.connection.close();
-   })
+
 
 
   describe('READ operation', () => {
@@ -37,11 +35,14 @@ describe('CRUD operations test suite', () => {
   })
 
   describe('CREATE operation', () => {
+
     test('inserts a valid record into the database', async (done) => {
-      const response = await request.post('/rooms/summary')
-      .send({stayId: 210});
-      expect(response.status).toBe(200);
-      done();
+     const response = await request.post('/rooms/summary')
+       .send({
+         stayId: 205
+       })
+       .expect(200);
+       done();
     });
   })
 
