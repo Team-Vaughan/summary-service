@@ -1,6 +1,10 @@
 const {NUMBER_OF_STAYS, StaySummary} = require('./dbStart.js');
+const {StaySummaryTest} = require('./mockDatabase.js');
+require('dotenv').config();
 
 const PARTY_MODE = true;
+
+let newModel = StaySummary;
 
 var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
@@ -31,7 +35,10 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
       thisStayObj.typeOfStay = stayTypes[randomIntLessThan(stayTypes.length)];
       thisStayObj.stayId = i + 100;
 
-      var thisStay = new StaySummary(thisStayObj);
+      if (process.env.ENV === 'test') {
+        newModel = StaySummaryTest;
+      }
+      var thisStay = new newModel(thisStayObj);
 
       thisStay.save((err, stay) => {
         if (err) {

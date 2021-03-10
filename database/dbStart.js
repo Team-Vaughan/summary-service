@@ -7,10 +7,12 @@ var StaySummary;
 var staySummarySchema;
 
 if(process.env.NODE_ENV === 'test') {
-  StaySummary = {};
-  staySummarySchema = {};
+  // StaySummary = {};
+  // staySummarySchema = {};
 
-} else {
+}
+
+
 
   var port = DATABASE_PORT === '' ? '' : ('/' + DATABASE_PORT);
   console.log(`mongodb://localhost${port}/${DATABASE_NAME}`);
@@ -36,7 +38,7 @@ if(process.env.NODE_ENV === 'test') {
   StaySummary = mongoose.model('StaySummary', staySummarySchema);
 
 
-}
+
 module.exports = {
   staySummarySchema,
   NUMBER_OF_STAYS,
