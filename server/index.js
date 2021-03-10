@@ -37,7 +37,6 @@ app.post('/rooms/summary', async (req, res) => {
 
   req.body.typeOfStay === undefined ? req.body.typeOfStay = "" : req.body.typeOfStay;
 
-console.log('here', req.body);
   db.insertNewSummary(req.body, (err, result) => {
     if (err) {
       console.log(err);

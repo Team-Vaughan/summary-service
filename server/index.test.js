@@ -35,22 +35,42 @@ describe('CRUD operations test suite', () => {
        .expect(200);
        done();
     });
+
+    test('will respond with 404 when sending a post request to /rooms/summary if record alreadty exist in database', async(done) => {
+      const response = await request.post('/rooms/summary')
+        .send({
+          stayId: 205
+        })
+        .expect(404);
+        done();
+    })
   })
 
   describe('UPDATE operation', () => {
     test('will respond with 200 when sending a put request with a valid stayId to /rooms/summary/:stayId', async(done) => {
       const response = await request.put('/rooms/summary/205')
-      .expect(200)
+      .expect(200);
       done();
-    })
+    });
+    test('Will respond with 404 when sending an invalid update request to     /rooms/summary/:stayId', async(done) => {
+      const response = await request.put('/rooms/summary/asda')
+       .expect(404);
+       done();
+    });
   })
 
   describe('DELETE operation', () => {
     test('Will respond with 200 when sending a delete request with a valid stayId to /rooms/summary/:stayId', async(done) => {
       const response = await request.delete('/rooms/summary/205')
-      .expect(200)
+      .expect(200);
       done();
-    })
+    });
+
+    test('Will respond with 404 when sending an invalid delete request to     /rooms/summary/:stayId', async(done) => {
+      const response = await request.delete('/rooms/summary/asda')
+       .expect(404);
+       done();
+    });
   })
 
 })
