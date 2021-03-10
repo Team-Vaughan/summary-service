@@ -7,6 +7,10 @@ var getSummaryInfo;
 let SummaryModel = StaySummary;
 
 if (process.env.ENV === 'test') {
+  SummaryModel = StaySummaryTest;
+}
+
+if (process.env.ENV === 'test') {
 
   getSummaryInfo = (id, cb) => {
     if (id >= 100 && id < 200) {
@@ -24,7 +28,7 @@ if (process.env.ENV === 'test') {
   }
 } else {
   getSummaryInfo = (id, cb) => {
-    StaySummary.find({stayId: id}, (err, summary) => {
+    SummaryModel.find({stayId: id}, (err, summary) => {
       if (err) {
         console.log(err);
         cb(err);
@@ -39,9 +43,7 @@ if (process.env.ENV === 'test') {
   }
 }
 
-if (process.env.ENV === 'test') {
-   SummaryModel = StaySummaryTest;
-}
+
 
 let insertNewSummary = (info, cb) => {
   // need to make sure stayId isn't already taken by another room
