@@ -1,11 +1,12 @@
 const {StaySummary} = require('./dbStart.js');
-require('dotenv');
-
-
+require('dotenv').config();
+const {StaySummaryTest} = require('./mockDatabase.js');
 
 var getSummaryInfo;
 
-if (process.env.NODE_ENV === 'test') {
+let SummaryModel = StaySummary;
+
+if (process.env.ENV === 'test') {
 
   getSummaryInfo = (id, cb) => {
     if (id >= 100 && id < 200) {
@@ -38,6 +39,10 @@ if (process.env.NODE_ENV === 'test') {
   }
 }
 
+if (process.env.ENV === 'test') {
+   SummaryModel = StaySummaryTest;
+}
+
 let insertNewSummary = (info, cb) => {
   // need to make sure stayId isn't already taken by another room
   let {
@@ -50,14 +55,14 @@ let insertNewSummary = (info, cb) => {
   } = info;
 
 
-  StaySummary.find({stayId: stayId}, (err, summary) => {
+  SummaryModel.find({stayId: stayId}, (err, summary) => {
     if (err) {
       console.log('Record already in database');
       cb(err, 404);
     } else if (summary.length > 0) {
       cb(err, 404);
     } else {
-      StaySummary.create({stayId, numBeds, numBedrooms, numBaths, numGuests, typeOfStay}, (err, result) => {
+      SummaryModel.create({stayId, numBeds, numBedrooms, numBaths, numGuests, typeOfStay}, (err, result) => {
         if (err) {
           console.log(err);
           cb(err, 404);
@@ -70,7 +75,7 @@ let insertNewSummary = (info, cb) => {
 }
 
 let deleteSummary = (id, cb) => {
-  StaySummary.deleteOne({stayId: id }, (err, result) => {
+  SummaryModel.deleteOne({stayId: id }, (err, result) => {
     if (err) {
       console.log(err);
       cb(err, 404);
@@ -82,7 +87,7 @@ let deleteSummary = (id, cb) => {
 
 let updateSummary = (id, cb) => {
   let options = {useFindAndModify: true};
-  StaySummary.findOneAndUpdate({stayId: id}, options, (err, result) => {
+  SummaryModel.findOneAndUpdate({stayId: id}, options, (err, result) => {
     if (err) {
       console.log(err);
       cb(err, 404);

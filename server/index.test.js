@@ -3,18 +3,12 @@ const supertest = require('supertest');
 const request = supertest(app);
 require('dotenv');
 const {DATABASE_NAME, DATABASE_PORT, DATABASE_TEST_NAME} = require('../config.js');
-const mongoose = require('mongoose');
-var db = require('../database/db.js');
-const Schema = mongoose.Schema;
+
+
 
 
 
 describe('CRUD operations test suite', () => {
-
-
-
-
-
   describe('READ operation', () => {
     test('gets summary for a valid stay ID', async (done) => {
       //process.env.TEST_MODE = true; //so mongo isn't needed for CircleCI
