@@ -4,7 +4,8 @@ const request = supertest(app);
 require('dotenv');
 const {DATABASE_NAME, DATABASE_PORT, DATABASE_TEST_NAME} = require('../config.js');
 
-console.log('ENV', process.env.ENV);
+const {StaySummaryTest} = require('../database/mockDatabase.js');
+//process.env.ENV should be set to test when this file runs
 
 describe('CRUD operations test suite', () => {
   describe('READ operation', () => {
@@ -35,7 +36,16 @@ describe('CRUD operations test suite', () => {
        })
        .expect(200);
        done();
-    });
+      })
+
+      test('will set any value in schema not included in the body to null', async (done) => {
+        StaySummaryTest.find({stayId: 205}, (err, summary) => {
+          let numOfBeds = summary[0]._doc.numBeds;
+          expect(numOfBeds).toBe(null);
+          done();
+        })
+       })
+
 
     test('will respond with 404 when sending a post request to /rooms/summary if record alreadty exist in database', async(done) => {
       const response = await request.post('/rooms/summary')
@@ -46,6 +56,7 @@ describe('CRUD operations test suite', () => {
         done();
     })
   })
+
 
   describe('UPDATE operation', () => {
     test('will respond with 200 when sending a put request with a valid stayId to /rooms/summary/:stayId', async(done) => {
