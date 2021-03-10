@@ -5,9 +5,6 @@ require('dotenv');
 const {DATABASE_NAME, DATABASE_PORT, DATABASE_TEST_NAME} = require('../config.js');
 
 
-
-
-
 describe('CRUD operations test suite', () => {
   describe('READ operation', () => {
     test('gets summary for a valid stay ID', async (done) => {
@@ -30,7 +27,7 @@ describe('CRUD operations test suite', () => {
 
   describe('CREATE operation', () => {
 
-    test('inserts a valid record into the database', async (done) => {
+    test('will respond with 200 when sending post request to /rooms/summary', async (done) => {
      const response = await request.post('/rooms/summary')
        .send({
          stayId: 205
@@ -38,6 +35,22 @@ describe('CRUD operations test suite', () => {
        .expect(200);
        done();
     });
+  })
+
+  describe('UPDATE operation', () => {
+    test('will respond with 200 when sending a put request with a valid stayId to /rooms/summary/:stayId', async(done) => {
+      const response = await request.put('/rooms/summary/205')
+      .expect(200)
+      done();
+    })
+  })
+
+  describe('DELETE operation', () => {
+    test('Will respond with 200 when sending a delete request with a valid stayId to /rooms/summary/:stayId', async(done) => {
+      const response = await request.delete('/rooms/summary/205')
+      .expect(200)
+      done();
+    })
   })
 
 })
