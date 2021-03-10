@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/airBnB-summariesTest', {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost/airBnB-summariesTest', {useNewUrlParser: true, useUnifiedTopology: true});
 
-const db = mongoose.connection;
+const db = mongoose.createConnection('mongodb://localhost/airBnB-summariesTest', {useNewUrlParser: true, useUnifiedTopology: true});
 db.on('error', console.error.bind(console, 'connection error'));
 
 const staySummaryTestSchema = new mongoose.Schema({

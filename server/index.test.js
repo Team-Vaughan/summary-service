@@ -4,6 +4,7 @@ const request = supertest(app);
 require('dotenv');
 const {DATABASE_NAME, DATABASE_PORT, DATABASE_TEST_NAME} = require('../config.js');
 
+console.log('ENV', process.env.ENV);
 
 describe('CRUD operations test suite', () => {
   describe('READ operation', () => {

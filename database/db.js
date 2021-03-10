@@ -64,8 +64,7 @@ let insertNewSummary = (info, cb) => {
     } else {
       SummaryModel.create({stayId, numBeds, numBedrooms, numBaths, numGuests, typeOfStay}, (err, result) => {
         if (err) {
-          console.log(err);
-          cb(err, 404);
+          cb(err.message, 404);
         } else {
           cb(null, 200);
         }
@@ -77,8 +76,7 @@ let insertNewSummary = (info, cb) => {
 let deleteSummary = (id, cb) => {
   SummaryModel.deleteOne({stayId: id }, (err, result) => {
     if (err) {
-      console.log(err);
-      cb(err, 404);
+      cb(err.message, 404);
     } else {
       cb(null, 200);
     }
@@ -89,8 +87,7 @@ let updateSummary = (id, cb) => {
   let options = {useFindAndModify: true};
   SummaryModel.findOneAndUpdate({stayId: id}, options, (err, result) => {
     if (err) {
-      console.log(err);
-      cb(err, 404);
+      cb(err.message, 404);
     } else {
       cb(null, 200);
     }
