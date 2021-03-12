@@ -2,7 +2,7 @@ const {DATABASE_NAME, DATABASE_PORT} = require('../config.js');
 
 require('dotenv');
 
-const NUMBER_OF_STAYS = 1000000;
+const NUMBER_OF_STAYS = 100;
 var StaySummary;
 var staySummarySchema;
 

@@ -25,8 +25,6 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
 
     const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
-    let docArray = [];
-    let chunkDoc = [];
     //Create 100 Stay Summaries
     for (var i = 0; i < NUMBER_OF_STAYS; i++) {
       var thisStayObj = {};
@@ -42,34 +40,15 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
         newModel = StaySummaryTest;
       }
       var thisStay = new newModel(thisStayObj);
-       chunkDoc.push(thisStay._doc);
-      if (chunkDoc.length === 100000) {
-       docArray.push(chunkDoc);
-        chunkDoc = [];
-      }
-      // thisStay.save((err, stay) => {
-      //   if (err) {
-      //     console.log(err);
-      //   } else {
 
-      //     // console.log(`Saved stayId ${stay.stayId} (${stay.stayId - 99} out of 100)`);
-      //   }
-      // })
-    }
-    // console.log(docArray);
-    let insertManyRecords = () => {
-    StaySummaryTest.insertMany(docArray, {
-      ordered: false
-    });
-  }
+      thisStay.save((err, stay) => {
+        if (err) {
+          console.log(err);
+        } else {
 
-
-    for (let i = 0; i<docArray.length; i++) {
-      setTimeout(() => {
-        StaySummaryTest.insertMany(docArray[i], {
-          ordered: false
-        });
-      }, 10000)
+          console.log(`Saved stayId ${stay.stayId} (${stay.stayId - 99} out of 100)`);
+        }
+      })
     }
 
   }
