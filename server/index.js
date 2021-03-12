@@ -4,38 +4,8 @@ var cors = require('cors');
 var path = require('path');
 var db = require('../database/db.js');
 var {SERVER_PORT} = require('../config.js');
-const NodeCouchDb = require('node-couchdb');
+const couchdb = require('../database/couchDB.js');
 
-const couch = new NodeCouchDb({
-  auth: {
-    user: 'admin',
-    password: 'AcM!lan21'
-  }
-})
-
-const dbName = 'testdb';
-const viewUrl = '_design/view1/_view/id?include_docs=true';
-
-
-couch.listDatabases().then((dbs) => {
-  console.log('here dbs', dbs);
-})
-
-couch.get(dbName, viewUrl).then(({data}) => {
-  console.log(data.rows[0].doc)
-}, err => {
-  console.log('errror');
-})
-
-//able to insert item into db
-
-// couch.insert(dbName, {
-//   "StayId": 5
-// }).then(({data}) => {
-//   console.log(data)
-// }, err => {
-//   console.log(err);
-// });
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true}))
@@ -46,6 +16,9 @@ app.use(cors());
 app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
 
 
+app.get('/', async(req, res) => {
+  couchdb.insertIntoCouchDB(8);
+})
 
 app.get('/rooms/:id/summary', async (req, res) => {
   db.getSummaryInfo(req.params.id, (err, info) => {
