@@ -69,7 +69,7 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
         StaySummaryTest.insertMany(docArray[i], {
           ordered: false
         });
-      }, 5000)
+      }, 10000)
     }
 
   }
