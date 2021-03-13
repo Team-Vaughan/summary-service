@@ -11,9 +11,6 @@ const testCouch = new NodeCouchDb({
   }
 })
 
-testCouch.listDatabases().then((dbs) => {
-  console.log('here dbs', dbs);
-})
 const dbName = 'testdb';
 const viewUrl = '_design/view1/_view/id?include_docs=true';
 
@@ -56,11 +53,16 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
       }
       var thisStay = new newModel(thisStayObj);
 
+      if (process.env.DATABASE === 'couchdb') {
+
+      //make sure to delete the documents in the database first before inserting the new records
       testCouch.insert(dbName, thisStayObj).then(({data}) => {
         console.log('Inserting document', data)
       }, err => {
         console.log(err);
       });
+
+    }
 
       thisStay.save((err, stay) => {
         if (err) {
