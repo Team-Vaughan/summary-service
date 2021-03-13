@@ -5,6 +5,7 @@ var path = require('path');
 var db = require('../database/db.js');
 var {SERVER_PORT} = require('../config.js');
 const couchdb = require('../database/couchDB.js');
+const couch = require('../database/couch.js');
 
 
 var app = express();
@@ -16,8 +17,9 @@ app.use(cors());
 app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
 
 
+
 app.get('/', async(req, res) => {
-  couchdb.insertIntoCouchDB({"stayId": 20, "numBed": 5}, (status) => {
+  couch.insertIntoCouchDB({"stayId": 14, "numBed": 5}, (status) => {
     res.sendStatus(status);
   });
 })
