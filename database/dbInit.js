@@ -1,6 +1,21 @@
 const {NUMBER_OF_STAYS, StaySummary} = require('./dbStart.js');
 const {StaySummaryTest} = require('./mockDatabase.js');
 require('dotenv').config();
+const testdb = require('./couchDB.js');
+const NodeCouchDb = require('node-couchdb');
+
+const testCouch = new NodeCouchDb({
+  auth: {
+    user: 'admin',
+    password: 'AcM!lan21'
+  }
+})
+
+testCouch.listDatabases().then((dbs) => {
+  console.log('here dbs', dbs);
+})
+const dbName = 'testdb';
+const viewUrl = '_design/view1/_view/id?include_docs=true';
 
 const PARTY_MODE = true;
 
@@ -40,6 +55,12 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
         newModel = StaySummaryTest;
       }
       var thisStay = new newModel(thisStayObj);
+
+      testCouch.insert(dbName, thisStayObj).then(({data}) => {
+        console.log('Inserting document', data)
+      }, err => {
+        console.log(err);
+      });
 
       thisStay.save((err, stay) => {
         if (err) {

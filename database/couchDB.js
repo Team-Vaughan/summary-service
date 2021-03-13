@@ -29,11 +29,13 @@ let getCouchDBRecords = couch.get(dbName, viewUrl).then(({data}) => {
 
 let insertIntoCouchDB = (info, cb) => {
   couch.insert(dbName, {
-  "StayId": stayid
+  info
 }).then(({data}) => {
   console.log(data)
+  cb(200);
 }, err => {
   console.log(err);
+  cb(404);
 });
 };
 

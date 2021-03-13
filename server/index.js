@@ -17,7 +17,9 @@ app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
 
 
 app.get('/', async(req, res) => {
-  couchdb.insertIntoCouchDB(8);
+  couchdb.insertIntoCouchDB({"stayId": 20, "numBed": 5}, (status) => {
+    res.sendStatus(status);
+  });
 })
 
 app.get('/rooms/:id/summary', async (req, res) => {
