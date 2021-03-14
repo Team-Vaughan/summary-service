@@ -2,8 +2,6 @@ const testdb = require('./couchDB.js');
 
 const nano = require('nano')('http://admin:123456@localhost:5984');
 
-nano.db.create('testcouchdb');
-
 
 const createCouchdb = async () => {
   await nano.db.destroy('testcouchdb')
@@ -30,7 +28,9 @@ const PARTY_MODE = true;
 const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
 //Create 100 Stay Summaries
-for (var i = 0; i < 100; i++) {
+const seedDB = async (records) => {
+
+for (var i = 0; i < records; i++) {
  var thisStayObj = {};
 
  thisStayObj.numBedrooms = 1 + randomIntLessThan(5);
@@ -39,12 +39,18 @@ for (var i = 0; i < 100; i++) {
  thisStayObj.numGuests = thisStayObj.numBeds * (randomIntLessThan(2) + 1);
  thisStayObj.typeOfStay = stayTypes[randomIntLessThan(stayTypes.length)];
  thisStayObj.stayId = i + 100;
-allRecords.push(thisStayObj);
+  allRecords.push(thisStayObj);
+};
+
+  const testcouch = await createCouchdb();
+  await testcouch.insert(allRecords[0]);
+
 };
 
 
-if (process.env.DATABASE === 'couchdb') {
+seedDB(10);
 
+if (process.env.DATABASE === 'couchdb') {
 };
 
 
