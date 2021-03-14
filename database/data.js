@@ -29,8 +29,11 @@ const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
 //Create 100 Stay Summaries
 const seedDB = async (records) => {
+  let count = 0;
+let batchCount = 0;
+let batch = [];
 
-for (var i = 0; i < records; i++) {
+while (records !== 0) {
  var thisStayObj = {};
 
  thisStayObj.numBedrooms = 1 + randomIntLessThan(5);
@@ -38,20 +41,35 @@ for (var i = 0; i < records; i++) {
  thisStayObj.numBaths = numBathsTypes[randomIntLessThan(numBathsTypes.length)];
  thisStayObj.numGuests = thisStayObj.numBeds * (randomIntLessThan(2) + 1);
  thisStayObj.typeOfStay = stayTypes[randomIntLessThan(stayTypes.length)];
- thisStayObj.stayId = i + 100;
-  allRecords.push(thisStayObj);
+ thisStayObj.stayId = count + 100;
+ count++;
+  batch.push(thisStayObj);
+  batchCount++;
+  if (batchCount === 10) {
+    allRecords.push(batch);
+    batch = [];
+    batchCount = 0;
+  }
+  records--;
 };
+
+if (batch.length > 0) {
+  allRecords.push(batch);
+}
+
 
   const testcouch = await createCouchdb();
-  await testcouch.insert(allRecords[0]);
+  for (let j = 0; j < allRecords.length; j++) {
+    await testcouch.insert(allRecords[0][j]);
+  }
 
 };
 
 
-seedDB(10);
 
 if (process.env.DATABASE === 'couchdb') {
+  seedDB(100);
 };
 
 
-console.log(allRecords);
+// console.log(allRecords);

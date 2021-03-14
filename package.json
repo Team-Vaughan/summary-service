@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./database/data.js",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "lint": "eslint client/src/* database/db.js server/index.js",
-    "seed": "DATABASE=couchdb node ./database/dbInit.js",
+    "seed": "DATABASE=couchdb node ./database/data.js",
     "seedMongodb": "DATABASE=mongodb node ./database/dbInit.js",
     "test": "jest"
   },
