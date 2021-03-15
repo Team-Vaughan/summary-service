@@ -4,11 +4,12 @@ const nano = require('nano')('http://admin:123456@localhost:5984');
 
 
 const createCouchdb = async () => {
-  await nano.db.destroy('testcouchdb')
-  await nano.db.create('testcouchdb')
-  console.log('Couch is created for testing seed');
-  const testcouchdb = await nano.use('testcouchdb')
-  return testcouchdb
+    await nano.db.destroy('testcouchdb')
+    await nano.db.create('testcouchdb')
+    console.log('Couch is created for testing seed');
+    const testcouchdb = await nano.use('testcouchdb')
+    created = true;
+    return testcouchdb
 };
 
 
@@ -28,7 +29,7 @@ const PARTY_MODE = true;
 const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
 //Create 100 Stay Summaries
-const seedDB = async (records) => {
+const seedDB = async (records, dbname) => {
   let count = 0;
 let batchCount = 0;
 let batch = [];
@@ -45,7 +46,7 @@ while (records !== 0) {
  count++;
   batch.push(thisStayObj);
   batchCount++;
-  if (batchCount === 10000) {
+  if (batchCount === 1000) {
     allRecords.push(batch);
     batch = [];
     batchCount = 0;
@@ -58,28 +59,34 @@ if (batch.length > 0) {
 }
 
 
-  const testcouch = await createCouchdb();
+  // const testcouch = await createCouchdb();
 
   const insertRecords = async (dataBase, bat) => {
-      let batNum = 0;
-      // console.log(bat);
-      await dataBase.insert(bat)
-      await batNum++;
-      // await console.log(batNum, " batch inserted");
+    await dataBase.bulk(bat);
   }
 
   // console.log(allRecords);
   for (let j = 0; j < allRecords.length; j++) {
-    for (let k =0; k < allRecords[j].length; k++)
-    await insertRecords(testcouch, allRecords[j][k]);
-  }
+    let objOfRecords = {};
+    objOfRecords.docs = allRecords[j];
+      insertRecords(dbname, objOfRecords)
+};
+
+//allRecords --> [ {[]}, {[]}, {[]} ]
 
 };
 
 
+let seedDATABASE = async () => {
+  const testcouch = await createCouchdb();
+   await seedDB(2500000, testcouch);
+   await seedDB(2500000, testcouch);
+   await seedDB(2500000, testcouch)
+}
+
 
 if (process.env.DATABASE === 'couchdb') {
-  seedDB(10000000);
+  seedDATABASE();
 };
 
 
