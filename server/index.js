@@ -4,7 +4,6 @@ var cors = require('cors');
 var path = require('path');
 var db = require('../database/db.js');
 var {SERVER_PORT} = require('../config.js');
-const couchdb = require('../database/couchDB.js');
 const couch = require('../database/couch.js');
 
 

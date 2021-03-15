@@ -1,5 +1,3 @@
-const testdb = require('./couchDB.js');
-
 const nano = require('nano')('http://admin:123456@localhost:5984');
 
 
@@ -13,7 +11,7 @@ const createCouchdb = async () => {
 };
 
 
-const allRecords = [];
+// const allRecords = [];
 
 var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
@@ -28,8 +26,8 @@ const PARTY_MODE = true;
 
 const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
-//Create 100 Stay Summaries
 const seedDB = async (records, dbname) => {
+  const allRecords = [];
   let count = 0;
 let batchCount = 0;
 let batch = [];
@@ -58,30 +56,32 @@ if (batch.length > 0) {
   allRecords.push(batch);
 }
 
-
-  // const testcouch = await createCouchdb();
-
-  const insertRecords = async (dataBase, bat) => {
-    await dataBase.bulk(bat);
+  const insertRecords = async (dataBase, batch) => {
+   await dataBase.bulk(batch);
   }
 
   // console.log(allRecords);
   for (let j = 0; j < allRecords.length; j++) {
     let objOfRecords = {};
     objOfRecords.docs = allRecords[j];
-      insertRecords(dbname, objOfRecords)
+    await insertRecords(dbname, objOfRecords)
 };
-
-//allRecords --> [ {[]}, {[]}, {[]} ]
-
 };
 
 
+//this will seed 9M records
 let seedDATABASE = async () => {
   const testcouch = await createCouchdb();
-   await seedDB(2500000, testcouch);
-   await seedDB(2500000, testcouch);
-   await seedDB(2500000, testcouch)
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
+   await seedDB(1000000, testcouch);
 }
 
 
