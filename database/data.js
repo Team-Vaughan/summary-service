@@ -45,7 +45,7 @@ while (records !== 0) {
  count++;
   batch.push(thisStayObj);
   batchCount++;
-  if (batchCount === 10) {
+  if (batchCount === 10000) {
     allRecords.push(batch);
     batch = [];
     batchCount = 0;
@@ -59,8 +59,19 @@ if (batch.length > 0) {
 
 
   const testcouch = await createCouchdb();
+
+  const insertRecords = async (dataBase, bat) => {
+      let batNum = 0;
+      // console.log(bat);
+      await dataBase.insert(bat)
+      await batNum++;
+      // await console.log(batNum, " batch inserted");
+  }
+
+  // console.log(allRecords);
   for (let j = 0; j < allRecords.length; j++) {
-    await testcouch.insert(allRecords[0][j]);
+    for (let k =0; k < allRecords[j].length; k++)
+    await insertRecords(testcouch, allRecords[j][k]);
   }
 
 };
@@ -68,7 +79,7 @@ if (batch.length > 0) {
 
 
 if (process.env.DATABASE === 'couchdb') {
-  seedDB(100);
+  seedDB(10000000);
 };
 
 
