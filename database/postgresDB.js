@@ -1,3 +1,5 @@
+//This file is used for creating a new postgres database
+
 const { Pool, Client } = require('pg');
 const pgtools = require('pgtools');
 
@@ -8,6 +10,14 @@ const config = {
   host: 'localhost'
 }
 
+//drop database
+pg.dropdb(config, 'testdb1', (err, res) => {
+  if (err) {
+    console.error(err);
+  }
+})
+
+//create new database
 pgtools.createdb(config, 'testdb1', (err, res) => {
   if (err) {
     console.error(err);
@@ -16,16 +26,3 @@ pgtools.createdb(config, 'testdb1', (err, res) => {
   }
 })
 
-// const connectionString= 'postgres://root:root@localhost:5432/test1';
-
-// const client = new Client({
-//   connectionString: connectionString
-// });
-
-// client.connect(err => {
-//   if (err) {
-//     console.error('connection error', err);
-//   } else {
-//     console.log('postgresDB connected')
-//   }
-// });
