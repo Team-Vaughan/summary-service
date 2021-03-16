@@ -26,9 +26,10 @@ const PARTY_MODE = true;
 
 const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
+let count = 0;
+
 const seedDB = async (records, dbname) => {
   const allRecords = [];
-  let count = 0;
 let batchCount = 0;
 let batch = [];
 
@@ -72,16 +73,9 @@ if (batch.length > 0) {
 //this will seed 9M records
 let seedDATABASE = async () => {
   const testcouch = await createCouchdb();
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
-   await seedDB(1000000, testcouch);
+  for (let i = 0; i < 10; i++) {
+    await seedDB(1000000, testcouch);
+  }
 }
 
 
