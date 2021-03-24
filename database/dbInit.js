@@ -2,7 +2,14 @@ const {NUMBER_OF_STAYS, StaySummary} = require('./dbStart.js');
 const {StaySummaryTest} = require('./mockDatabase.js');
 require('dotenv').config();
 
+
+
+const allRecords = [];
+
+
 let newModel = StaySummary;
+
+
 
 var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
@@ -17,7 +24,6 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
     const stayTypes = ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane'];
 
     const numBathsTypes = [0, 1, 1.5, 2, 2.5];
-
 
     //Create 100 Stay Summaries
     for (var i = 0; i < NUMBER_OF_STAYS; i++) {
@@ -44,6 +50,8 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
         }
       })
     }
+
+
   }
 });
 
