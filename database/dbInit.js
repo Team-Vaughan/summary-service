@@ -3,10 +3,9 @@ const {StaySummaryTest} = require('./mockDatabase.js');
 require('dotenv').config();
 
 
+
 const allRecords = [];
 
-
-const PARTY_MODE = true;
 
 let newModel = StaySummary;
 
@@ -22,10 +21,7 @@ StaySummary.deleteMany({}, (err, result) => { //clear existing database
     console.log(err);
   } else {
     console.log(result);
-    const stayTypes = PARTY_MODE ?
-      ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane']
-      :
-      ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house'];
+    const stayTypes = ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane'];
 
     const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
