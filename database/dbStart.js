@@ -6,14 +6,6 @@ const NUMBER_OF_STAYS = 100;
 var StaySummary;
 var staySummarySchema;
 
-if(process.env.NODE_ENV === 'test') {
-  // StaySummary = {};
-  // staySummarySchema = {};
-
-}
-
-
-
   var port = DATABASE_PORT === '' ? '' : ('/' + DATABASE_PORT);
   console.log(`mongodb://localhost${port}/${DATABASE_NAME}`);
   const mongoose = require('mongoose');

@@ -6,19 +6,15 @@ var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
 }
 
-const PARTY_MODE = true;
 
- const stayTypes = PARTY_MODE ?
- ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane']
- :
- ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house'];
+ const stayTypes = ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane'];
 
 const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
 let count = 0;
 
 const seedPostgresDB = async (records) => {
-
+  let numOfRecords = records;
   await db.sync({
       force: true
     })
@@ -59,6 +55,7 @@ for (let i = 0; i < allRecords.length; i++) {
         console.log('Error seeding postgres database', err);
       }
   }
+  console.log(`DONE SEEDING: ${numOfRecords} records`)
 };
 
 const insertRecords = async (records) => {
@@ -66,7 +63,7 @@ const insertRecords = async (records) => {
 }
 
 
-seedPostgresDB(10000000);
+seedPostgresDB(10000);
 
 
 
