@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seedPostgres": "node ./database/seedPostgres.js",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "lint": "eslint client/src/* database/db.js server/index.js",
@@ -52,11 +53,13 @@
     "msw": "^0.25.0",
     "multer": "^1.4.2",
     "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
     "pgtools": "^0.3.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-test-renderer": "^15.4.2",
+    "sequelize": "^6.5.1",
     "style-loader": "^2.0.0",
     "styled-components": "^5.2.1"
   },

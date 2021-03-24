@@ -18,27 +18,19 @@ const summaries = db.define('summaries', {
   },
   stayId: {
     type: DataTypes.INTEGER
+  },
+  numBedrooms: {
+    type: DataTypes.INTEGER
+  },
+  numBaths: {
+    type: DataTypes.INTEGER
+  },
+  numGuests: {
+    type: DataTypes.INTEGER
   }
 });
 
 
-let obj1 = {
-  numBeds: 2,
-  typeOfStay: 'cat garage',
-  stayId: 44
-}
-
-let docs = [];
-docs.push(obj1);
-
-//able to insert records into sumamries database
-db.sync({
-  force: true
-})
-.then(() => {
-  console.log(docs);
-  summaries.bulkCreate(docs)
-})
 
 
 module.exports.summaries = summaries;
