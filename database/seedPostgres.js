@@ -63,7 +63,7 @@ const insertRecords = async (records) => {
 }
 
 
-seedPostgresDB(10000);
+seedPostgresDB(10000000);
 
 
 
