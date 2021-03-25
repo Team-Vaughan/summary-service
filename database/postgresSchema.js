@@ -27,6 +27,9 @@ const summaries = db.define('summaries', {
   },
   numGuests: {
     type: DataTypes.INTEGER
+  },
+  hostName: {
+    type: DataTypes.STRING
   }
 });
 

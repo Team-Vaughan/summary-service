@@ -1,11 +1,22 @@
 const {StaySummaryTest} = require('./mockDatabase.js');
 const { summaries } = require('./postgresSchema.js');
 const { db } = require('./postgresDB.js');
+const faker = require('faker');
 
 var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
 }
 
+//generate host names
+const hostNames = [];
+let numOfHostNames = 150;
+const generateHostNames = (numOfHost) => {
+  for (let i = 0; i < numOfHost; i++) {
+    let randomName = faker.name.findName();
+    hostNames.push(randomName);
+  }
+}
+generateHostNames(numOfHostNames);
 
  const stayTypes = ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane'];
 
@@ -32,6 +43,7 @@ while (records !== 0) {
  thisStayObj.numBaths = numBathsTypes[randomIntLessThan(numBathsTypes.length)];
  thisStayObj.numGuests = thisStayObj.numBeds * (randomIntLessThan(2) + 1);
  thisStayObj.typeOfStay = stayTypes[randomIntLessThan(stayTypes.length)];
+ thisStayObj.hostName = hostNames[randomIntLessThan(numOfHostNames)];
  thisStayObj.stayId = count + 100;
  count++;
   batch.push(thisStayObj);
