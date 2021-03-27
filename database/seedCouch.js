@@ -5,7 +5,7 @@ const faker = require('faker');
 const createCouchdb = async () => {
     await nano.db.destroy('summary')
     await nano.db.create('summary')
-    console.log('Couch is created for testing seed');
+    console.log('Summary db is created for seeding');
     const summaryDB = await nano.use('summary')
     return summaryDB
 };
@@ -19,7 +19,7 @@ var randomIntLessThan = (input) => {
 
 //generate host names
 const hostNames = [];
-let numOfHostNames = 150;
+let numOfHostNames = 3000000;
 const generateHostNames = (numOfHost) => {
   //this will generate 150 host names
   for (let i = 0; i < numOfHost; i++) {
@@ -40,6 +40,7 @@ const allRecords = [];
 const seedDB = async (records, dbname) => {
 let batchCount = 0;
 let batch = [];
+let stayIdCount = 0;
 
 while (records !== 0) {
  var thisStayObj = {};
@@ -50,7 +51,8 @@ while (records !== 0) {
  thisStayObj.numGuests = thisStayObj.numBeds * (randomIntLessThan(2) + 1);
  thisStayObj.typeOfStay = stayTypes[randomIntLessThan(stayTypes.length)];
  thisStayObj.hostName = hostNames[randomIntLessThan(numOfHostNames)];
- thisStayObj.stayId = count + 100;
+ thisStayObj.stayId = stayIdCount + 100;
+ stayIdCount++;
  count++;
   batch.push(thisStayObj);
   batchCount++;
