@@ -1,5 +1,5 @@
 const {StaySummaryTest} = require('./mockDatabase.js');
-const { summaries } = require('./postgresSchema.js');
+const { summaries, hostInfo } = require('./postgresSchema.js');
 const { db } = require('./postgresDB.js');
 const faker = require('faker');
 
@@ -9,7 +9,7 @@ var randomIntLessThan = (input) => {
 
 //generate host names
 const hostNames = [];
-let numOfHostNames = 150;
+let numOfHostNames = 5;
 const generateHostNames = (numOfHost) => {
   for (let i = 0; i < numOfHost; i++) {
     let randomName = faker.name.findName();
@@ -30,39 +30,50 @@ const seedPostgresDB = async (records) => {
       force: true
     })
 
-const allRecords = [];
+const allSummaryRecords = [];
+const allHostRecords = [];
 let batchCount = 0;
-let batch = [];
+let summaryBatch = [];
+let hostBatch = [];
 
 
 while (records !== 0) {
  let thisStayObj = {};
+
+ let thisHostInfoObj = {};
+
+thisHostInfoObj.hostName = randomIntLessThan[numOfHostNames];
 
  thisStayObj.numBedrooms = 1 + randomIntLessThan(5);
  thisStayObj.numBeds = 1 + thisStayObj.numBedrooms * randomIntLessThan(3);
  thisStayObj.numBaths = numBathsTypes[randomIntLessThan(numBathsTypes.length)];
  thisStayObj.numGuests = thisStayObj.numBeds * (randomIntLessThan(2) + 1);
  thisStayObj.typeOfStay = stayTypes[randomIntLessThan(stayTypes.length)];
- thisStayObj.hostName = hostNames[randomIntLessThan(numOfHostNames)];
+ //hostId will be random 1 - 150 or how many host there are
+ thisStayObj.hostId= randomIntLessThan(numOfHostNames);
  thisStayObj.stayId = count + 100;
  count++;
-  batch.push(thisStayObj);
+  summaryBatch.push(thisStayObj);
+  hostBatch.push(thisHostInfoObj);
   batchCount++;
   if (batchCount === 1000) {
-    allRecords.push(batch);
-    batch = [];
+    allSummaryRecords.push(summaryBatch);
+    allHostRecords.push(hostBatch);
+    summaryBatch = [];
+    hostBatch = [];
     batchCount = 0;
   }
   records--;
 };
 
 if (batch.length > 0) {
-  allRecords.push(batch);
+  allSumamryRecords.push(summaryBatch);
+  allHostRecords.push(hostBatch);
 }
 
-for (let i = 0; i < allRecords.length; i++) {
+for (let i = 0; i < allSummaryRecords.length; i++) {
       try {
-        await insertRecords(allRecords[i]);
+        await insertRecords(allSummaryRecords[i]);
       } catch (e) {
         console.log('Error seeding postgres database', err);
       }
@@ -75,7 +86,7 @@ const insertRecords = async (records) => {
 }
 
 
-seedPostgresDB(10000000);
+seedPostgresDB(1000);
 
 
 

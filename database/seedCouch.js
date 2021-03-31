@@ -35,12 +35,12 @@ generateHostNames(numOfHostNames);
 const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
 let count = 0;
+let stayIdCount = 0;
 
 const allRecords = [];
 const seedDB = async (records, dbname) => {
 let batchCount = 0;
 let batch = [];
-let stayIdCount = 0;
 
 while (records !== 0) {
  var thisStayObj = {};
@@ -81,12 +81,12 @@ if (batch.length > 0) {
 };
 
 
-//this will seed 9M records
+
 let seedDATABASE = async () => {
   const couchDB = await createCouchdb();
-  for (let i = 0; i < 10; i++) {
-    await seedDB(1000000, couchDB);
-  }
+  await seedDB(10000000, couchDB);
+
+
 }
 
 

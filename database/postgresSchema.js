@@ -3,18 +3,18 @@ const { db } = require('./postgresDB.js')
 
 
 
-//single table schema
+//summary table schema
 const summaries = db.define('summaries', {
   id: {
     autoIncrement: true,
-    primaryKey: true,
     type: DataTypes.INTEGER
   },
   numBeds: {
     type: DataTypes.INTEGER
   },
   typeOfStay: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    primaryKey: true,
   },
   stayId: {
     type: DataTypes.INTEGER
@@ -28,12 +28,35 @@ const summaries = db.define('summaries', {
   numGuests: {
     type: DataTypes.INTEGER
   },
-  hostName: {
-    type: DataTypes.STRING
+  hostId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: hostInfo,
+      key: 'id'
+    }
   }
 });
 
+//host info table
+const hostInfo = db.define('hostInfo', {
+  id: {
+    autoIncrement: true,
+    primaryKey: true,
+    DataTypes.INTEGER
+  },
+  hostName: {
+    type: DataTypes.STRING
+  }
+})
+
+
+hostInfo.hasMany(summaries);
+summaries.belongsTo(hostInfo);
 
 
 
-module.exports.summaries = summaries;
+
+module.exports = {
+  summaries,
+  hostInfo
+};
