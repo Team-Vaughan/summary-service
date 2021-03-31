@@ -1,11 +1,23 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { db } = require('./postgresDB.js')
 
-
+//host info table
+const hosts = db.define('hosts', {
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER
+  },
+  hostName: {
+    type: DataTypes.STRING
+  }
+})
 
 //summary table schema
 const summaries = db.define('summaries', {
   id: {
+    allowNull: false,
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
@@ -14,9 +26,10 @@ const summaries = db.define('summaries', {
   },
   typeOfStay: {
     type: DataTypes.STRING,
-    primaryKey: true,
   },
   stayId: {
+    allowNull: false,
+    primaryKey: true,
     type: DataTypes.INTEGER
   },
   numBedrooms: {
@@ -31,32 +44,22 @@ const summaries = db.define('summaries', {
   hostId: {
     type: DataTypes.INTEGER,
     references: {
-      model: hostInfo,
+      model: hosts,
       key: 'id'
     }
   }
 });
 
-//host info table
-const hostInfo = db.define('hostInfo', {
-  id: {
-    autoIncrement: true,
-    primaryKey: true,
-    DataTypes.INTEGER
-  },
-  hostName: {
-    type: DataTypes.STRING
-  }
-})
 
 
-hostInfo.hasMany(summaries);
-summaries.belongsTo(hostInfo);
+
+hosts.hasMany(summaries);
+summaries.belongsTo(hosts);
 
 
 
 
 module.exports = {
   summaries,
-  hostInfo
+  hosts
 };
