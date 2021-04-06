@@ -17,6 +17,7 @@ const insertNewSummaryInfo = async (summaryInfo, cb) => {
     })
     .catch(err => {
       console.log(err);
+      //should return 500 for an error or if the record is a duplicate (stayId already in use)
       cb(500);
     })
    await summaries.create(summaryBody)
@@ -29,6 +30,44 @@ const insertNewSummaryInfo = async (summaryInfo, cb) => {
    })
 }
 
+//read
+const getRoomSummary = async (id, cb) => {
+  let roomId = id;
+
+
+  const summaryData = await summaries.findOne({
+   where: {"stayId": roomId}
+  })
+
+  if (summaryData === null) {
+    cb(500)
+  } else {
+    let hostId = summaryData.dataValues.hostId;
+    let summaryObj = summaryData.dataValues;
+
+    const hostData = await hosts.findOne({
+      where: {"id": hostId}
+    })
+
+    const host = hostData.dataValues.hostName;
+    summaryObj.hostName = host;
+
+    const summaryInfo = {};
+    summaryInfo.stayId = summaryObj.stayId;
+    summaryInfo.numBeds = summaryObj.numBeds;
+    summaryInfo.numBaths = summaryObj.numBaths;
+    summaryInfo.numBedrooms = summaryObj.numBedrooms;
+    summaryInfo.numGuests = summaryObj.numGuests;
+    summaryInfo.typeOfStay = summaryObj.typeOfStay;
+    summaryInfo.hostName = summaryObj.hostName;
+    cb(summaryInfo);
+  }
+
+
+
+}
+
 module.exports = {
   insertNewSummaryInfo,
+  getRoomSummary
 }

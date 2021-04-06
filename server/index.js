@@ -19,6 +19,8 @@ app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
 
 app.post('/rooms/addRoomSummary', controllers.addSummaryInfoToRoom);
 
+app.get('/rooms/:id/summary', controllers.getSummaryInfo);
+
 
 app.get('/rooms/:id/summary', async (req, res) => {
   db.getSummaryInfo(req.params.id, (err, info) => {

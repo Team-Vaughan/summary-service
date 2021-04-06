@@ -1,10 +1,9 @@
 // need to get query functions from DB
-const { insertNewSummaryInfo } = require('../../database/crudOperations.js');
+const { insertNewSummaryInfo, getRoomSummary } = require('../../database/crudOperations.js');
 const db = require('../../database/postgresDB.js');
 
 
 const addSummaryInfoToRoom = (req, res) => {
-  console.log(req.body);
   //needs to check that body contains every field needed
   req.body.numBeds === undefined ? req.body.numBeds = "": req.body.numBeds;
 
@@ -23,16 +22,27 @@ const addSummaryInfoToRoom = (req, res) => {
      res.status(500).send('No stayId inserted');
    } else {
      insertNewSummaryInfo(req.body, (result) => {
-       console.log('here!!', result)
        res.sendStatus(result);
      });
    }
+  }
 
-  //if err send response 500
-  //else res should send 200 back to client
-
-}
+  const getSummaryInfo = (req, res) => {
+    let roomId = req.params.id;
+    if (roomId < 0) {
+       res.status(500).send('StayId is not a valid id');
+    }
+  //call query function to find data
+    getRoomSummary(roomId, (data, err) => {
+      if(data === null) {
+        res.sendStatus(err);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  }
 
 module.exports = {
-  addSummaryInfoToRoom
+  addSummaryInfoToRoom,
+  getSummaryInfo
 }
