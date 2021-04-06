@@ -34,13 +34,12 @@ const insertNewSummaryInfo = async (summaryInfo, cb) => {
 const getRoomSummary = async (id, cb) => {
   let roomId = id;
 
-
   const summaryData = await summaries.findOne({
    where: {"stayId": roomId}
   })
 
   if (summaryData === null) {
-    cb(500)
+    cb(null, 500)
   } else {
     let hostId = summaryData.dataValues.hostId;
     let summaryObj = summaryData.dataValues;
@@ -60,14 +59,25 @@ const getRoomSummary = async (id, cb) => {
     summaryInfo.numGuests = summaryObj.numGuests;
     summaryInfo.typeOfStay = summaryObj.typeOfStay;
     summaryInfo.hostName = summaryObj.hostName;
-    cb(summaryInfo);
+    cb(summaryInfo, 200);
   }
+}
 
-
-
+//update
+const updateRoomInfo =  async (id, info, cb) => {
+  let stayId =id;
+  let newRoomInfo = info;
+  const roomSummary = await summaries.findOne({ where: {"stayId": stayId}})
+  if (roomSummary) {
+    roomSummary.update(newRoomInfo)
+    cb(200);
+  } else {
+    cb(500);
+  }
 }
 
 module.exports = {
   insertNewSummaryInfo,
-  getRoomSummary
+  getRoomSummary,
+  updateRoomInfo
 }
