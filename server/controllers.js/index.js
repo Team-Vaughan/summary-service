@@ -3,7 +3,7 @@ const { insertNewSummaryInfo } = require('../../database/crudOperations.js');
 const db = require('../../database/postgresDB.js');
 
 
-const addSummaryInfoToRoom = (req) => {
+const addSummaryInfoToRoom = (req, res) => {
   console.log(req.body);
   //needs to check that body contains every field needed
   req.body.numBeds === undefined ? req.body.numBeds = "": req.body.numBeds;
@@ -23,7 +23,7 @@ const addSummaryInfoToRoom = (req) => {
      res.status(500).send('No stayId inserted');
    } else {
      insertNewSummaryInfo(req.body, (result) => {
-        console.log(result);
+       console.log('here!!', result)
        res.sendStatus(result);
      });
    }

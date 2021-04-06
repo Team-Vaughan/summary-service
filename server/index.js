@@ -72,9 +72,8 @@ app.put('/rooms/summary/:stayId', async (req, res) => {
   db.updateSummary(stayId, (err, result) => {
     if (err) {
       console.log(err);
-      res.sendStatus(404);
+      res.sendStatus(500);
     } else {
-      console.log('Record successfully updated');
       res.sendStatus(result);
     }
   })
