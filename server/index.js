@@ -23,65 +23,67 @@ app.get('/rooms/:id/summary', controllers.getRoomSummaryInfo);
 
 app.put('/rooms/summary/:stayId', controllers.updateRoomSummary);
 
+app.delete('/rooms/summary/:stayId', controllers.deleteRoomInfo);
 
-app.get('/rooms/:id/summary', async (req, res) => {
-  db.getSummaryInfo(req.params.id, (err, info) => {
-    if(err) {
-      res.sendStatus(404);
-    } else {
-      res.send(info);
-    }
-  })
-})
 
-app.post('/rooms/summary', async (req, res) => {
+// app.get('/rooms/:id/summary', async (req, res) => {
+//   db.getSummaryInfo(req.params.id, (err, info) => {
+//     if(err) {
+//       res.sendStatus(404);
+//     } else {
+//       res.send(info);
+//     }
+//   })
+// })
 
-  // get body from post request
-  //need to check that all info was correctly sent or sent at all
-  req.body.numBeds === undefined ? req.body.numBeds = "": req.body.numBeds;
+// app.post('/rooms/summary', async (req, res) => {
 
-  req.body.numBedrooms === undefined ? req.body.numBedrooms = "":req.body.numBedrooms;
+//   // get body from post request
+//   //need to check that all info was correctly sent or sent at all
+//   req.body.numBeds === undefined ? req.body.numBeds = "": req.body.numBeds;
 
-  req.body.numBaths === undefined ? req.body.numBaths = "" :req.body.numBaths;
+//   req.body.numBedrooms === undefined ? req.body.numBedrooms = "":req.body.numBedrooms;
 
-  req.body.numGuests === undefined ? req.body.numGuests = "" : req.body.numGuests;
+//   req.body.numBaths === undefined ? req.body.numBaths = "" :req.body.numBaths;
 
-  req.body.typeOfStay === undefined ? req.body.typeOfStay = "" : req.body.typeOfStay;
+//   req.body.numGuests === undefined ? req.body.numGuests = "" : req.body.numGuests;
 
-  db.insertNewSummary(req.body, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(404);
-    } else {
-      res.sendStatus(result)
-    }
-  })
-})
+//   req.body.typeOfStay === undefined ? req.body.typeOfStay = "" : req.body.typeOfStay;
 
-app.delete('/rooms/summary/:stayId', async (req, res) => {
-  let stayId = req.params.stayId;
-  db.deleteSummary(stayId, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(404);
-    } else {
-      console.log('Record successfully removed');
-      res.sendStatus(result);
-    }
-  })
-})
+//   db.insertNewSummary(req.body, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//       res.sendStatus(404);
+//     } else {
+//       res.sendStatus(result)
+//     }
+//   })
+// })
 
-app.put('/rooms/summary/:stayId', async (req, res) => {
-  let stayId = req.params.stayId;
-  db.updateSummary(stayId, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(500);
-    } else {
-      res.sendStatus(result);
-    }
-  })
-})
+// app.delete('/rooms/summary/:stayId', async (req, res) => {
+//   let stayId = req.params.stayId;
+//   db.deleteSummary(stayId, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//       res.sendStatus(404);
+//     } else {
+//       console.log('Record successfully removed');
+//       res.sendStatus(result);
+//     }
+//   })
+// })
+
+// app.put('/rooms/summary/:stayId', async (req, res) => {
+//   let stayId = req.params.stayId;
+//   db.updateSummary(stayId, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//       res.sendStatus(500);
+//     } else {
+//       res.sendStatus(result);
+//     }
+//   })
+// })
 
 
 console.log('listening on port ', SERVER_PORT);

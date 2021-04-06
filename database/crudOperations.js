@@ -76,8 +76,23 @@ const updateRoomInfo =  async (id, info, cb) => {
   }
 }
 
+const deleteRoomSummary = async (id, cb) => {
+  let stayId = id;
+
+  const roomSummaries = await summaries.findAll({ where: {"stayId": stayId}});
+  if (!roomSummaries) {
+    cb(500);
+  } else {
+    roomSummaries.forEach(summary => {
+      summary.destroy();
+      cb(200);
+    });
+  }
+}
+
 module.exports = {
   insertNewSummaryInfo,
   getRoomSummary,
-  updateRoomInfo
+  updateRoomInfo,
+  deleteRoomSummary
 }

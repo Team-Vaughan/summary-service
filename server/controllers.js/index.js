@@ -1,5 +1,5 @@
 // need to get query functions from DB
-const { insertNewSummaryInfo, getRoomSummary, updateRoomInfo } = require('../../database/crudOperations.js');
+const { insertNewSummaryInfo, getRoomSummary, updateRoomInfo, deleteRoomSummary } = require('../../database/crudOperations.js');
 const db = require('../../database/postgresDB.js');
 
 
@@ -54,8 +54,20 @@ const addSummaryInfoToRoom = (req, res) => {
     }
   }
 
+const deleteRoomInfo = (req, res) => {
+  let roomId = req.params.stayId
+  if (roomId < 0 || !roomId) {
+    res.status(500).send('Invalid room ID');
+  } else {
+    deleteRoomSummary(roomId, (result) => {
+      res.sendStatus(result);
+    })
+  }
+}
+
 module.exports = {
   addSummaryInfoToRoom,
   getRoomSummaryInfo,
-  updateRoomSummary
+  updateRoomSummary,
+  deleteRoomInfo
 }
