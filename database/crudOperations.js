@@ -48,7 +48,6 @@ const getRoomSummary = async (id, cb) => {
       cb(summaryInfo, 200);
     })
     .catch(console.error);
-
 }
 
 //update

@@ -48,7 +48,6 @@ const summaries = db.define('summaries', {
 });
 
 
-
  hosts.hasMany(summaries, {foreignKey: 'hostId'})
  summaries.belongsTo(hosts, {foreignKey: 'hostId'})
 
