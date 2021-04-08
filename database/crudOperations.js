@@ -1,5 +1,6 @@
 //need to import models into this file
 const {summaries, hosts} = require('./postgresSchema.js');
+const { Sequelize} = require('sequelize');
 
 const insertNewSummaryInfo = async (summaryInfo, cb) => {
   //should recieve json
@@ -30,37 +31,24 @@ const insertNewSummaryInfo = async (summaryInfo, cb) => {
    })
 }
 
-//read
 const getRoomSummary = async (id, cb) => {
   let roomId = id;
 
-  const summaryData = await summaries.findOne({
-   where: {"stayId": roomId}
-  })
-
-  if (summaryData === null) {
-    cb(null, 500)
-  } else {
-    let hostId = summaryData.dataValues.hostId;
-    let summaryObj = summaryData.dataValues;
-
-    const hostData = await hosts.findOne({
-      where: {"id": hostId}
+  summaries.findAll({where: {stayId: roomId}, include: [hosts]})
+    .then(summary => {
+      let summaryObj = summary[0].dataValues;
+      const summaryInfo = {};
+      summaryInfo.stayId = summaryObj.stayId;
+      summaryInfo.numBeds = summaryObj.numBeds;
+      summaryInfo.numBaths = summaryObj.numBaths;
+      summaryInfo.numBedrooms = summaryObj.numBedrooms;
+      summaryInfo.numGuests = summaryObj.numGuests;
+      summaryInfo.typeOfStay = summaryObj.typeOfStay;
+      summaryInfo.hostName = summaryObj.host.hostName;
+      cb(summaryInfo, 200);
     })
+    .catch(console.error);
 
-    const host = hostData.dataValues.hostName;
-    summaryObj.hostName = host;
-
-    const summaryInfo = {};
-    summaryInfo.stayId = summaryObj.stayId;
-    summaryInfo.numBeds = summaryObj.numBeds;
-    summaryInfo.numBaths = summaryObj.numBaths;
-    summaryInfo.numBedrooms = summaryObj.numBedrooms;
-    summaryInfo.numGuests = summaryObj.numGuests;
-    summaryInfo.typeOfStay = summaryObj.typeOfStay;
-    summaryInfo.hostName = summaryObj.hostName;
-    cb(summaryInfo, 200);
-  }
 }
 
 //update

@@ -42,21 +42,15 @@ const summaries = db.define('summaries', {
     type: DataTypes.INTEGER
   },
   hostId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: hosts,
-      key: 'id'
-    }
+    type: DataTypes.INTEGER
   }
+
 });
 
 
 
-
-hosts.hasMany(summaries);
-summaries.belongsTo(hosts);
-
-
+ hosts.hasMany(summaries, {foreignKey: 'hostId'})
+ summaries.belongsTo(hosts, {foreignKey: 'hostId'})
 
 
 module.exports = {
