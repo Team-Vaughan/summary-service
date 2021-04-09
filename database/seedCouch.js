@@ -1,13 +1,13 @@
 const nano = require('nano')('http://admin:123456@localhost:5984');
+const faker = require('faker');
 
-
+//database is summary
 const createCouchdb = async () => {
-    await nano.db.destroy('testcouchdb')
-    await nano.db.create('testcouchdb')
-    console.log('Couch is created for testing seed');
-    const testcouchdb = await nano.use('testcouchdb')
-    created = true;
-    return testcouchdb
+    await nano.db.destroy('summary')
+    await nano.db.create('summary')
+    console.log('Summary db is created for seeding');
+    const summaryDB = await nano.use('summary')
+    return summaryDB
 };
 
 
@@ -17,19 +17,28 @@ var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
 }
 
-const PARTY_MODE = true;
+//generate host names
+const hostNames = [];
+let numOfHostNames = 3000000;
+const generateHostNames = (numOfHost) => {
+  //this will generate 150 host names
+  for (let i = 0; i < numOfHost; i++) {
+    let randomName = faker.name.findName();
+    hostNames.push(randomName);
+  }
+}
+generateHostNames(numOfHostNames);
 
- const stayTypes = PARTY_MODE ?
- ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane']
- :
- ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house'];
+
+ const stayTypes = ['Entire home', 'Private room', 'Treehouse', 'Entire bungalow', 'Entire camper', 'Studio apartment', 'Entire cabin', 'Private loft', 'Empty lot', 'Entire guest suite', 'Entire guesthouse', 'Entire condominium', 'Tiny house', 'Spy mansion', 'Haunted house', 'Bomb shelter', 'Bunkbed fort', 'Entire spacious trunk of car', 'Medieval castle', 'Entire Spice Bus', 'Airplane'];
 
 const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 
 let count = 0;
+let stayIdCount = 0;
 
+const allRecords = [];
 const seedDB = async (records, dbname) => {
-  const allRecords = [];
 let batchCount = 0;
 let batch = [];
 
@@ -41,7 +50,9 @@ while (records !== 0) {
  thisStayObj.numBaths = numBathsTypes[randomIntLessThan(numBathsTypes.length)];
  thisStayObj.numGuests = thisStayObj.numBeds * (randomIntLessThan(2) + 1);
  thisStayObj.typeOfStay = stayTypes[randomIntLessThan(stayTypes.length)];
- thisStayObj.stayId = count + 100;
+ thisStayObj.hostName = hostNames[randomIntLessThan(numOfHostNames)];
+ thisStayObj.stayId = stayIdCount + 100;
+ stayIdCount++;
  count++;
   batch.push(thisStayObj);
   batchCount++;
@@ -70,12 +81,12 @@ if (batch.length > 0) {
 };
 
 
-//this will seed 9M records
+
 let seedDATABASE = async () => {
-  const testcouch = await createCouchdb();
-  for (let i = 0; i < 10; i++) {
-    await seedDB(1000000, testcouch);
-  }
+  const couchDB = await createCouchdb();
+  await seedDB(10000000, couchDB);
+
+
 }
 
 
@@ -84,4 +95,4 @@ if (process.env.DATABASE === 'couchdb') {
 };
 
 
-// console.log(allRecords);
+
