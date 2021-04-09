@@ -15,8 +15,6 @@ var randomIntLessThanButNotZero = (input) => {
   return result;
 }
 
-
-
 var createName = () => {
 let firstName = faker.name.findName();
 let middleInital = faker.name.findName();
@@ -59,20 +57,6 @@ let batchCount = 0;
 let summaryBatch = [];
 let hostBatch = [];
 
-//divide the records by a number to get the total number of host we want
-// let numOfHosts = Math.floor(records / 1.25);
-// let hostBatchCount = 0;
-// for (let m = 0; m < numOfHosts; m++) {
-//   let thisHostInfoObj = {};
-//   thisHostInfoObj.hostName = createName();
-//   hostBatch.push(thisHostInfoObj);
-//   hostBatchCount++;
-//   if (hostBatchCount === 1000) {
-//     allHostRecords.push(hostBatch);
-//     hostBatch = [];
-//     hostBatchCount = 0;
-//   }
-// }
 
 let hostBatchCount = 0;
 for (let m = 0; m < allHosts.length; m++) {

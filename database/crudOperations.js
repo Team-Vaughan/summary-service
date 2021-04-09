@@ -3,14 +3,12 @@ const {summaries, hosts} = require('./postgresSchema.js');
 const { Sequelize} = require('sequelize');
 
 const insertNewSummaryInfo = async (summaryInfo, cb) => {
-  //should recieve json
   //summaryBody should include everything except hostName
   let summaryBody = {...summaryInfo};
   delete summaryBody.hostName;
   //hostBody should include only hostName
   let hostBody = {};
   hostBody.hostName = summaryInfo.hostName;
-  // //first need to add hostName to hosts model
   await hosts.create(hostBody)
    .then((host) => {
      let hostId =  host.dataValues.id;
@@ -18,7 +16,6 @@ const insertNewSummaryInfo = async (summaryInfo, cb) => {
     })
     .catch(err => {
       console.log(err);
-      //should return 500 for an error or if the record is a duplicate (stayId already in use)
       cb(500);
     })
    await summaries.create(summaryBody)

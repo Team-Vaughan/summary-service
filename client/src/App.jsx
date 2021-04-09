@@ -33,24 +33,8 @@ class App extends React.Component {
       mode: 'GET',
       url: `/rooms/${productId}/summary`,
       success: (info) => {
-        console.log('received info', info);
         stateUpdateObj = info;
-        $.ajax({
-          mode: 'GET',
-          url: TEST_MODE ? `http://localhost:5007/users/${productId}/` : `/users/${productId}/`,
-          success: (hostData) => {
-
-            stateUpdateObj.hostName = hostData.name;
-            stateUpdateObj.hostPhotoURL = hostData.avatarUrl;
-            stateUpdateObj.isSuperhost = hostData.isSuperhost;
-            console.log('superhost status: ', hostData.isSuperhost);
-            this.setState(stateUpdateObj);
-          },
-          error: (err) => {
-            console.log('Error getting host data');
-            this.setState(stateUpdateObj);
-          }
-        })
+        this.setState(stateUpdateObj);
       },
       error: (err) => {
         console.log('Error getting summary data');
