@@ -3,7 +3,7 @@ const { summaries, hosts } = require('./postgresSchema.js');
 const { db } = require('./postgresDB.js');
 const faker = require('faker');
 
-let numberOfRecords = 9000000;
+let numberOfRecords = 10000000;
 
 var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
@@ -32,7 +32,7 @@ return name;
 
 var getHostNames = async (numOfRecords) => {
   let hostNames = [];
-  let numOfHosts = Math.floor(numOfRecords / 1.25)
+  let numOfHosts = Math.floor(numOfRecords / 1.75)
   for (let i = 0; i < numOfHosts; i++) {
     let name = createName();
     hostNames.push(name);
@@ -89,8 +89,6 @@ for (let m = 0; m < allHosts.length; m++) {
 
 while (records !== 0) {
  let thisStayObj = {};
-
-
  thisStayObj.numBedrooms = 1 + randomIntLessThan(5);
  thisStayObj.numBeds = 1 + thisStayObj.numBedrooms * randomIntLessThan(3);
  thisStayObj.numBaths = numBathsTypes[randomIntLessThan(numBathsTypes.length)];
