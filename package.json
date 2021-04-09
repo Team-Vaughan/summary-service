@@ -10,7 +10,8 @@
     "lint": "eslint client/src/* database/db.js server/index.js",
     "seed": "DATABASE=couchdb node ./database/seedCouch.js",
     "seedMongodb": "DATABASE=mongodb node ./database/dbInit.js",
-    "test": "jest"
+    "test": "jest",
+    "stress-test": "$(npm bin)/artillery run ./server/artillery/stress-test.yml"
   },
   "author": "Becky Gagnon",
   "license": "",
@@ -38,6 +39,7 @@
     "@fontsource/roboto": "^4.1.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/user-event": "^12.6.2",
+    "artillery": "^1.6.2",
     "axios": "^0.19.2",
     "babel-jest": "^26.6.3",
     "body-parser": "^1.19.0",

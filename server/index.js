@@ -1,5 +1,5 @@
+require('newrelic');
 const express = require('express');
-const newrelic = require('newrelic');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');

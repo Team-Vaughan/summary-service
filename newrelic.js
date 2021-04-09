@@ -9,11 +9,11 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['summary_service'],
+  app_name: ['sdc-summary-service'],
   /**
    * Your New Relic license key.
    */
-  license_key: process.env.NEW_RELIC_KEY,
+  license_key: '61343aace97a1643a47a1ec5e597c161d321NRAL',
   /**
    * This setting controls distributed tracing.
    * Distributed tracing lets you see the path that a request takes through your

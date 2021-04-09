@@ -1,0 +1,14 @@
+config:
+  target: "http://localhost:5002"
+  phases:
+    -  duration: 60
+       arrivalRate: 5
+  payload:
+    path: "ids.csv"
+    field:
+      - "id"
+scenarios:
+   - name: "Get summary by StayId"
+     flow:
+        - get:
+            url: "/rooms/{{ id }}/"
