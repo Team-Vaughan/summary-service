@@ -1,0 +1,19 @@
+#Artillery config for 1000 req/second for 60 seconds
+config:
+  target: "http://localhost:5002"
+  phases:
+    -  duration: 30
+       arrivalRate: 1
+       name: "Warm up"
+    -  duration: 60
+       arrivalRate: 1000
+  payload:
+    path: "ids.csv"
+    field:
+      - "id"
+scenarios:
+   - name: "Get summary by StayId"
+     flow:
+        - get:
+            url: "/rooms/{{ id }}/"
+

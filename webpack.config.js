@@ -2,7 +2,7 @@ const path = require('path');
 module.exports = {
 	entry: './client/src/index.jsx',
 	output: {
-		path: path.resolve(__dirname, 'client', 'dist'),
+		path: path.resolve(__dirname, 'public'),
 		filename: 'summary.js'
 	},
 	watch: true,
@@ -20,13 +20,6 @@ module.exports = {
 					{loader: "style-loader"},
 					{loader: "css-loader"}
 				]
-			},
-			{
-				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-				loader: 'file-loader',
-				options: {
-					outputPath: 'fonts-summary/'
-				}
 			}
 		]
 	}
