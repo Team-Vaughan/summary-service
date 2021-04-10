@@ -16,3 +16,4 @@ scenarios:
      flow:
         - get:
             url: "/rooms/{{ id }}/"
+
