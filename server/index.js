@@ -17,10 +17,14 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.use(express.static(__dirname + '/../public'));
-app.use('/:id', express.static(__dirname + '/../public'));
+// app.use('/:id', express.static(__dirname + '/../public'));
 
-app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
+
+
+// app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
+
+app.use(express.static(__dirname + '/../public'));
+
 
 app.post('/rooms/addRoomSummary', controllers.addSummaryInfoToRoom);
 
