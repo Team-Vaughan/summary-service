@@ -1,6 +1,6 @@
 #Artillery config for 1000 req/second for 60 seconds
 config:
-  target: "http://localhost:5002"
+  target: "http://ec2-18-221-188-4.us-east-2.compute.amazonaws.com:5002"
   phases:
     -  duration: 30
        arrivalRate: 1
