@@ -1,6 +1,6 @@
 const {StaySummaryTest} = require('./mockDatabase.js');
 const { summaries, hosts } = require('./postgresSchema.js');
-const { db } = require('./postgresDB.js');
+// const { db } = require('./postgresDB.js');
 const faker = require('faker');
 
 let numberOfRecords = 10000000;
@@ -45,11 +45,12 @@ const numBathsTypes = [0, 1, 1.5, 2, 2.5];
 let count = 1;
 
 const seedPostgresDB = async (records) => {
+
   let allHosts = await getHostNames(records);
   let numOfRecords = records;
-  await db.sync({
-      force: true
-    })
+  // await db.sync({
+  //     force: true
+  //   })
 
 const allSummaryRecords = [];
 const allHostRecords = [];
@@ -124,7 +125,11 @@ const insertRecords = async (model, records) => {
 }
 
 
+
 seedPostgresDB(numberOfRecords);
+
+
+
 
 
 

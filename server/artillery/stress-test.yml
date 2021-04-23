@@ -3,7 +3,7 @@ config:
   target: "http://localhost:5002"
   phases:
     -  duration: 30
-       arrivalRate: 1
+       arrivalRate: 5
        name: "Warm up"
     -  duration: 60
        arrivalRate: 1000
