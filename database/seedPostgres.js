@@ -3,7 +3,7 @@ const { summaries, hosts } = require('./postgresSchema.js');
 // const { db } = require('./postgresDB.js');
 const faker = require('faker');
 
-let numberOfRecords = 100000;
+let numberOfRecords = 10000000;
 
 var randomIntLessThan = (input) => {
   return Math.floor(Math.random() * input);
@@ -127,8 +127,7 @@ const insertRecords = async (model, records) => {
 
 
 seedPostgresDB(numberOfRecords);
-seedPostgresDB(numberOfRecords);
-seedPostgresDB(numberOfRecords);
+
 
 
 

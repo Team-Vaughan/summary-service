@@ -41,32 +41,20 @@ app.post('/rooms/addRoomSummary', controllers.addSummaryInfoToRoom);
 
 app.get('/rooms/:id/summary', async (req, res) => {
   let stayId = req.params.id;
-    // client.set(1009, 1009, (res, err) => {
-    //   if (err) {
-    //     throw(err)
-    //   } else {
-    //     console.log(res);
-    //   }
-    // })
-  console.log('called', stayId);
     client.get(stayId, (err, data) => {
       if (err)
       console.log('here with error', data);
       if(data) {
-        console.log('here', data);
         res.status(200).send(data);
       } else {
-        console.log('made it here');
         getRoomSummary(stayId, (summary, err) => {
           if(summary === null) {
             res.sendStatus(err);
           } else {
-            client.set(stayId, JSON.stringify(summary), redis.print);
+            client.setex(stayId, 3000, JSON.stringify(summary));
             res.status(200).send(summary);
           }
         });
-        //  controllers.getRoomSummaryInfo(req, res);
-
       }
     });
 });
