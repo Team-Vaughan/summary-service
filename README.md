@@ -20,23 +20,24 @@ Inherited front-end and back-end legacy code of a modeled Airbnb summary bar mod
 
 ## Setup on Local
 
+1. git clone
+2. install dependencies with "npm install"
+3. seed the database by running "npm run seedPostgres"
+4. start server with "npm run server-dev"
+5. build bundle with "npm run build"
+6. verify app is up and running at localhost:5002/rooms/:id (for id values 1-10000000)
+7. for development, start webpack by running "npm run react-dev"
 
 
-## Usage:
-Run 'npm install'
-Modify config.js with your mongo connection information
-Run 'npm run seed'
-Build with 'npm run react-dev'
-Start server with 'npm run server-dev'
+# API
 
+This describes the resources that make up the summary-bar-service REST API. All data is sent and received as JSON.
 
-## CRUD API
+## Endpoints:
 
-Endpoint:
+http://localhost:5002/rooms/:stayId/summary/
 
-http://localhost:5002/rooms/summary/:stayId
-
-## GET
+###### GET
 
 Return an object of summary information for this location:
 
@@ -48,10 +49,11 @@ Return an object of summary information for this location:
     "numBaths": 1.5,
     "numBeds": 5,
     "numBedrooms": 2,
+    "hostName": "FirstName LastName",
     "_id": "60415bc55ffa344ca04915b8"
 }
 
-## POST
+###### POST
 
 Return 200 if record is successfully added, return 404 if record is not successfully added to database or if item already exists:
 
@@ -66,15 +68,16 @@ Expected body:
     "numBaths": integer,
     "numBeds": integer,
     "numBedrooms": integer,
+    "hostName": string
 }
 
-## PUT
+###### PUT
 
 Will update summary information for record that matches given stayId.
 
 Endpoint: http://localhost:5002/rooms/summary/201
 
-## DELETE
+###### DELETE
 
 Will delete entries from database that match given stayId.
 
@@ -83,3 +86,8 @@ Example:
 http://localhost:5002/rooms/summary/201
 
 Will delete record with stayId of 201.
+
+## Related Projects 
+
+• [user-service - Gigi C.](https://github.com/Team-Vaughan/user-service)
+• [photos-service - Chris T.](https://github.com/Team-Vaughan/photos-service)
