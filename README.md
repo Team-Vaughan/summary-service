@@ -89,5 +89,5 @@ Will delete record with stayId of 201.
 
 ## Related Projects 
 
-• [user-service - Gigi C.](https://github.com/Team-Vaughan/user-service) <br/>
+• [users-service - Gigi C.](https://github.com/Team-Vaughan/user-service) <br/>
 • [photos-service - Chris T.](https://github.com/Team-Vaughan/photos-service)
